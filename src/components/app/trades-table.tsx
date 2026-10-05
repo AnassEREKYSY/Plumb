@@ -28,7 +28,45 @@ export function TradesTable({
 }) {
   const setupName = new Map(setups.map((s) => [s.id, s]));
   return (
-    <div className="overflow-x-auto">
+    <>
+      {/* Phones: compact rows */}
+      <ul className="divide-y divide-line border-t border-line md:hidden">
+        {rows.map((c) => {
+          const s = c.trade.setup_id ? setupName.get(c.trade.setup_id) : null;
+          const broken = new Set(c.violations.map((v) => v.kind)).size;
+          return (
+            <li key={c.trade.id}>
+              <Link href={`/journal/${c.trade.id}`} className="flex items-center gap-3 px-4 py-3 active:bg-mauve-soft">
+                <span className={cn("grid size-8 shrink-0 place-items-center rounded-md text-[11px]", c.trade.direction === "long" ? "bg-gain-tint text-gain" : "bg-loss-tint text-loss")}>
+                  {c.trade.direction === "long" ? "▲" : "▼"}
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="flex items-center gap-2">
+                    <span className="text-[14px] font-medium text-ink">{c.trade.symbol}</span>
+                    {broken > 0 && <span className="size-1.5 rounded-full bg-ochre" title={t("journal.brokenCount", { n: broken })} />}
+                  </span>
+                  <span className="block truncate text-[12px] text-muted">
+                    {fmtDate(c.trade.opened_at, locale, { day: "numeric", month: "short" }, tz)} · {fmtTime(c.trade.opened_at, locale, tz)}
+                    {s ? ` · ${s.name}` : ""}
+                  </span>
+                </span>
+                <span className="shrink-0 text-right">
+                  {c.trade.status === "closed" ? (
+                    <>
+                      <Money value={c.pnl} currency={currency} className="block text-[13.5px] font-semibold" />
+                      <RValue value={c.r} className="block text-[11.5px]" />
+                    </>
+                  ) : (
+                    <Badge tone="mauve">{t(`status.${c.trade.status}`)}</Badge>
+                  )}
+                </span>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+
+    <div className="hidden overflow-x-auto md:block">
       <table className="w-full min-w-[760px] text-[13px] [&_td]:whitespace-nowrap">
         <thead>
           <tr className="border-y border-line bg-surface-2/60 text-left text-[11.5px] font-medium text-muted">
@@ -95,5 +133,6 @@ export function TradesTable({
         </tbody>
       </table>
     </div>
+    </>
   );
 }

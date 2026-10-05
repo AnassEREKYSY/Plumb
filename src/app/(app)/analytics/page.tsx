@@ -57,7 +57,7 @@ export default async function AnalyticsPage(props: PageProps<"/analytics">) {
     <>
       <PageHeader title={t("analytics.title")} intro={t("analytics.intro")} actions={<PeriodTabs value={period} t={t} base="/analytics" />} />
 
-      <Card className="mb-4 grid grid-cols-2 md:grid-cols-4">
+      <Card className="mb-4 grid grid-cols-2 gap-px overflow-hidden bg-line md:grid-cols-4">
         <Tile label={t("analytics.netPnl")}>
           <Money value={s.netPnl} currency={currency} />
         </Tile>
@@ -121,7 +121,7 @@ export default async function AnalyticsPage(props: PageProps<"/analytics">) {
 
 function Tile({ label, sub, children }: { label: string; sub?: string; children: React.ReactNode }) {
   return (
-    <div className="border-b border-line px-5 py-4 [&:nth-child(n+5)]:border-b-0 max-md:[&:nth-child(n+7)]:border-b-0 md:border-r md:[&:nth-child(4n)]:border-r-0 max-md:odd:border-r">
+    <div className="bg-surface px-4 py-4 sm:px-5">
       <Label>{label}</Label>
       <div className="num mt-1.5 font-display text-[1.55rem] leading-none text-ink">{children}</div>
       {sub && <div className="num mt-1.5 text-[12px] text-muted">{sub}</div>}

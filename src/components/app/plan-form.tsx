@@ -189,7 +189,7 @@ export function PlanForm({
   const priceStep = "any";
 
   return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_380px]">
+    <div className="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_340px] xl:grid-cols-[minmax(0,1fr)_380px]">
       <div className="space-y-4">
         <Segmented
           value={mode}
@@ -201,10 +201,10 @@ export function PlanForm({
           className="w-full sm:w-auto"
         />
 
-        <Card className="p-5">
+        <Card className="p-4 sm:p-5">
           <SectionTitle n="01">{t("plan.instrument")}</SectionTitle>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            <Field label={t("common.account")} htmlFor="account" className="sm:col-span-2 lg:col-span-1">
+          <div className="grid gap-4 sm:grid-cols-2 2xl:grid-cols-4">
+            <Field label={t("common.account")} htmlFor="account">
               <Select
                 id="account"
                 value={accountId}
@@ -252,9 +252,9 @@ export function PlanForm({
           </div>
         </Card>
 
-        <Card className="p-5">
+        <Card className="p-4 sm:p-5">
           <SectionTitle n="02">{t("plan.levels")}</SectionTitle>
-          <div className="grid gap-4 sm:grid-cols-3">
+          <div className="grid grid-cols-3 gap-x-2.5 gap-y-4 sm:gap-4">
             <Field label={t("plan.entry")} htmlFor="entry">
               <Input id="entry" inputMode="decimal" type="number" step={priceStep} value={entry} onChange={(ev) => setEntry(ev.target.value)} className="num" />
             </Field>
@@ -264,19 +264,21 @@ export function PlanForm({
             <Field label={t("plan.target")} htmlFor="target" error={targetError ? t("plan.invalidTarget") : undefined}>
               <Input id="target" inputMode="decimal" type="number" step={priceStep} value={target} onChange={(ev) => setTarget(ev.target.value)} className={cn("num", targetError && "border-loss")} />
             </Field>
+          </div>
+          <div className="mt-4 grid grid-cols-2 gap-x-2.5 gap-y-4 sm:grid-cols-3 sm:gap-4">
             <Field label={`${t("plan.riskPct")} (%)`} htmlFor="risk" hint={t("plan.riskPctHint", { pct: fmtNum(account?.risk_per_trade_pct ?? 1, locale, 1) })}>
               <Input id="risk" inputMode="decimal" type="number" step="0.05" value={riskPct} onChange={(ev) => setRiskPct(ev.target.value)} className="num" />
             </Field>
             <Field label={t("plan.size")} htmlFor="size" hint={t("plan.sizeHint")}>
               <Input id="size" inputMode="decimal" type="number" step="any" value={sizeOverride} placeholder={calcSize != null ? String(calcSize) : ""} onChange={(ev) => setSizeOverride(ev.target.value)} className="num" />
             </Field>
-            <Field label={t("plan.pointValue")} htmlFor="pv" hint={t("plan.pointValueHint")}>
+            <Field label={t("plan.pointValue")} htmlFor="pv" hint={t("plan.pointValueHint")} className="col-span-2 sm:col-span-1">
               <Input id="pv" inputMode="decimal" type="number" step="any" value={pointValue} onChange={(ev) => setPointValue(ev.target.value)} className="num" />
             </Field>
           </div>
         </Card>
 
-        <Card className="p-5">
+        <Card className="p-4 sm:p-5">
           <SectionTitle n="03">{t("plan.setup")}</SectionTitle>
           <div className="grid gap-4 sm:grid-cols-2">
             <Field label={t("plan.setup")} htmlFor="setup">
@@ -327,7 +329,7 @@ export function PlanForm({
         </Card>
 
         {mode === "log" && (
-          <Card className="p-5">
+          <Card className="p-4 sm:p-5">
             <SectionTitle n="04">{t("plan.outcome")}</SectionTitle>
             <div className="grid gap-4 sm:grid-cols-3">
               <Field label={t("plan.openedAt")} htmlFor="opened">
@@ -368,7 +370,7 @@ export function PlanForm({
       </div>
 
       {/* Ticket */}
-      <aside className="lg:sticky lg:top-6 lg:self-start">
+      <aside className="lg:sticky lg:top-24 lg:self-start">
         <Card className="overflow-hidden">
           <div className="flex items-center justify-between border-b border-line bg-surface-2/60 px-5 py-3">
             <span className="text-[13px] font-semibold text-ink">{t("plan.ticket")}</span>
@@ -422,6 +424,30 @@ export function PlanForm({
           </div>
         </Card>
       </aside>
+
+      {/* Small screens: the ticket summary stays reachable at the bottom */}
+      <div className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-surface/95 px-4 py-2.5 shadow-[0_-8px_24px_-12px_rgba(0,0,0,0.25)] backdrop-blur lg:hidden">
+        <div className="mx-auto flex max-w-[640px] items-center gap-3">
+          <dl className="num grid flex-1 grid-cols-3 gap-2 text-[11px]">
+            <div>
+              <dt className="text-muted">{t("plan.positionSize")}</dt>
+              <dd className="text-[14px] font-semibold text-ink">{size != null ? fmtNum(size, locale, 2) : "—"}</dd>
+            </div>
+            <div>
+              <dt className="text-muted">{t("plan.atRisk")}</dt>
+              <dd className="text-[14px] font-semibold text-loss">{risk != null ? fmtMoney(-risk, account?.currency ?? "EUR", locale, { decimals: 0 }) : "—"}</dd>
+            </div>
+            <div>
+              <dt className="text-muted">{t("plan.ratio")}</dt>
+              <dd className="text-[14px] font-semibold text-ink">{rr != null ? `1:${fmtNum(rr, locale, 1)}` : "—"}</dd>
+            </div>
+          </dl>
+          {ruleResults && ruleResults.some((r) => r.violation) && <span className="size-2 shrink-0 rounded-full bg-ochre" aria-hidden />}
+          <Button disabled={!canSubmit || pending} onClick={() => submit(mode === "plan" ? "planned" : "closed")} className="shrink-0">
+            {mode === "plan" ? t("plan.savePlan") : t("plan.saveLog")}
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }
