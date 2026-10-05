@@ -44,7 +44,7 @@ export function MonthCalendar({
           <Link href={{ query: { ...query, view: "calendar", month: prev } }} scroll={false} className="grid size-8 place-items-center rounded-md text-muted hover:bg-surface-2 hover:text-ink" aria-label="prev">
             <ChevronLeft className="size-4" />
           </Link>
-          <h3 className="w-40 text-center font-display text-[1.25rem] text-ink capitalize">{fmtDate(first.toISOString(), locale, { month: "long", year: "numeric" }, "UTC")}</h3>
+          <h3 className="w-40 text-center text-[15px] font-semibold text-ink first-letter:uppercase">{fmtDate(first.toISOString(), locale, { month: "long", year: "numeric" }, "UTC")}</h3>
           <Link href={{ query: { ...query, view: "calendar", month: next } }} scroll={false} className="grid size-8 place-items-center rounded-md text-muted hover:bg-surface-2 hover:text-ink" aria-label="next">
             <ChevronRight className="size-4" />
           </Link>

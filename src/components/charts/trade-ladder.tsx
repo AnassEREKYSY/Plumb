@@ -40,7 +40,7 @@ export function TradeLadder({
 
   if (entry == null || stop == null) {
     return (
-      <div ref={ref} style={{ height }} className="paper-grid relative rounded-md border border-dashed border-line-strong">
+      <div ref={ref} style={{ height }} className="relative rounded-md border border-dashed border-line-strong bg-surface-2/50">
         <div className="absolute inset-y-3 left-[36%] w-px bg-line-strong" />
         {[t("plan.ladderTarget"), t("plan.ladderEntry"), t("plan.ladderStop")].map((l, i) => (
           <div key={l} className="absolute left-[36%] flex -translate-x-[13px] items-center gap-3 text-[11.5px] text-muted" style={{ top: `${22 + i * 28}%` }}>

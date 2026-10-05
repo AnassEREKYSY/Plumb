@@ -21,7 +21,7 @@ export function Logo({ className, markClassName }: { className?: string; markCla
   return (
     <span className={cn("inline-flex items-center gap-2 text-plum", className)}>
       <PlumbMark className={cn("h-7 w-auto", markClassName)} />
-      <span className="font-display text-[1.45rem] leading-none font-semibold text-ink" style={{ fontVariationSettings: '"opsz" 48' }}>
+      <span className="text-[1.3rem] leading-none font-semibold tracking-[-0.03em] text-ink">
         Plumb
       </span>
     </span>

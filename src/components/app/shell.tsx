@@ -78,7 +78,7 @@ export function AppShell({
         className={cn("fixed inset-0 z-30 bg-ink/25 transition-opacity xl:hidden", open ? "opacity-100" : "pointer-events-none opacity-0")}
       />
 
-      <header className="sticky top-0 z-40 border-b border-line bg-paper/90 backdrop-blur-md">
+      <header className="sticky top-0 z-40 border-b border-line bg-paper/80 backdrop-blur-xl backdrop-saturate-150">
         <div className="mx-auto flex h-14 max-w-[1320px] items-center gap-2 px-4 sm:gap-3 sm:px-6 lg:h-16 lg:px-8">
           <button
             onClick={() => setOpen((v) => !v)}
@@ -104,12 +104,12 @@ export function AppShell({
                   href={href}
                   aria-current={active ? "page" : undefined}
                   className={cn(
-                    "relative flex items-center px-3 text-[13.5px] whitespace-nowrap transition-colors",
-                    active ? "font-medium text-ink" : "text-ink-2 hover:text-ink",
+                    "relative flex items-center px-3 text-[13.5px] font-medium whitespace-nowrap transition-colors duration-150",
+                    active ? "text-ink" : "text-muted hover:text-ink",
                   )}
                 >
                   {t(`nav.${key}`)}
-                  <span className={cn("absolute inset-x-3 -bottom-px h-[2px] rounded-full", active ? "bg-plum" : "bg-transparent")} />
+                  <span className={cn("absolute inset-x-3 -bottom-px h-[2px] origin-center rounded-full bg-plum transition-transform duration-200", active ? "scale-x-100" : "scale-x-0")} />
                 </Link>
               );
             })}
@@ -235,11 +235,11 @@ function UserMenu({ demo, email }: { demo: boolean; email: string | null }) {
         aria-label={t("settings.profile")}
         className="flex h-8 items-center gap-1 rounded-full border border-line-strong bg-surface pr-1.5 pl-[3px] hover:border-mauve/60"
       >
-        <span className="grid size-[26px] place-items-center rounded-full bg-mauve-tint font-display text-[13px] text-plum">{initial}</span>
+        <span className="grid size-[26px] place-items-center rounded-full bg-mauve-tint text-[12px] font-semibold text-plum">{initial}</span>
         <ChevronDown className={cn("size-3.5 text-muted transition-transform", open && "rotate-180")} />
       </button>
       {open && (
-        <div role="menu" className="rise absolute top-[calc(100%+8px)] right-0 z-50 w-[min(16rem,calc(100vw-2rem))] overflow-hidden rounded-lg border border-line bg-surface shadow-float">
+        <div role="menu" className="pop absolute top-[calc(100%+8px)] right-0 z-50 w-[min(16rem,calc(100vw-2rem))] overflow-hidden rounded-lg border border-line bg-surface shadow-float">
           <div className="border-b border-line px-4 py-3">
             <div className="text-[11.5px] text-muted">{demo ? t("accountKind.demo") : t("settings.profile")}</div>
             <div className="text-[13px] leading-snug font-medium text-ink">{demo ? t("demo.banner") : <span className="block truncate">{email}</span>}</div>
@@ -275,11 +275,11 @@ function UserMenu({ demo, email }: { demo: boolean; email: string | null }) {
 function DemoBanner() {
   const { t } = useI18n();
   return (
-    <div className="border-b border-line bg-plum text-on-plum dark:bg-mauve-tint dark:text-ink">
+    <div className="border-b border-line bg-mauve-soft text-ink-2">
       <div className="mx-auto flex max-w-[1320px] flex-wrap items-center justify-center gap-x-4 gap-y-0.5 px-4 py-2 text-center text-[12.5px] sm:text-[13px]">
-        <span className="opacity-90">{t("demo.banner")}</span>
+        <span>{t("demo.banner")}</span>
         <form action={exitDemoAction}>
-          <button className="font-medium underline decoration-from-font underline-offset-4 hover:opacity-80">{t("demo.cta")} →</button>
+          <button className="font-medium text-plum underline-offset-4 hover:underline">{t("demo.cta")} →</button>
         </form>
       </div>
     </div>

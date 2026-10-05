@@ -1,8 +1,5 @@
 @import "tailwindcss";
-@import "@fontsource-variable/fraunces/opsz.css";
-@import "@fontsource-variable/instrument-sans/index.css";
-@import "@fontsource/ibm-plex-mono/400.css";
-@import "@fontsource/ibm-plex-mono/500.css";
+@import "@fontsource-variable/inter/opsz.css";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
@@ -10,20 +7,20 @@
 /*  Plumb palette — warm paper, plum ink, dusty mauve, sage green      */
 /* ------------------------------------------------------------------ */
 :root {
-  --paper: #faf8f5;
+  --paper: #ffffff;
   --surface: #ffffff;
-  --surface-2: #f4f0ee;
-  --surface-3: #ece6e6;
-  --line: #e4dfe2;
-  --line-strong: #d3cbd0;
-  --ink: #241e26;
-  --ink-2: #4a414c;
-  --muted: #776c79;
+  --surface-2: #f7f6f8;
+  --surface-3: #eeecf0;
+  --line: #ebe9ed;
+  --line-strong: #dcd8df;
+  --ink: #1c1a1f;
+  --ink-2: #47424c;
+  --muted: #736d78;
   --plum: #4b3350;
   --plum-hover: #3d2942;
   --mauve: #8c6a87;
   --mauve-tint: #eee6ed;
-  --mauve-soft: #f6f1f5;
+  --mauve-soft: #faf7fa;
   --gain: #2f6b4f;
   --gain-tint: #e3efe7;
   --loss: #8a3f73;
@@ -32,19 +29,19 @@
   --ochre-tint: #f6ebd9;
   --on-plum: #faf8f5;
   --ring: #8c6a87;
-  --shadow: 0 1px 0 rgba(36, 30, 38, 0.04), 0 1px 2px rgba(36, 30, 38, 0.04);
-  --shadow-lg: 0 1px 0 rgba(36, 30, 38, 0.03), 0 12px 32px -12px rgba(36, 30, 38, 0.18);
-  --grid: rgba(36, 30, 38, 0.06);
+  --shadow: 0 1px 2px rgba(28, 26, 31, 0.04);
+  --shadow-lg: 0 1px 2px rgba(28, 26, 31, 0.04), 0 12px 32px -12px rgba(28, 26, 31, 0.16);
+  --grid: rgba(28, 26, 31, 0.05);
   color-scheme: light;
 }
 
 .dark {
-  --paper: #141016;
-  --surface: #1c171f;
-  --surface-2: #231d26;
-  --surface-3: #2c252f;
-  --line: #2f2833;
-  --line-strong: #40374a;
+  --paper: #121014;
+  --surface: #18161b;
+  --surface-2: #201d23;
+  --surface-3: #2a262e;
+  --line: #2a262e;
+  --line-strong: #3a3540;
   --ink: #efe9ef;
   --ink-2: #cfc5d0;
   --muted: #9a8f9c;
@@ -90,9 +87,8 @@
   --color-ochre-tint: var(--ochre-tint);
   --color-on-plum: var(--on-plum);
 
-  --font-sans: "Instrument Sans Variable", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Fraunces Variable", ui-serif, Georgia, serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 
   --radius-sm: 4px;
   --radius-md: 6px;
@@ -105,13 +101,15 @@
 
 html {
   background: var(--paper);
+  scroll-behavior: smooth;
 }
 
 body {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-sans);
-  font-feature-settings: "ss01", "cv11";
+  font-optical-sizing: auto;
+  font-feature-settings: "cv11";
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -121,11 +119,11 @@ body {
   color: var(--ink);
 }
 
+/* Headings and big figures: same family, heavier and tighter. */
 .font-display {
-  font-family: var(--font-display);
-  font-optical-sizing: auto;
-  font-variation-settings: "opsz" 96;
-  letter-spacing: -0.02em;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  letter-spacing: -0.025em;
 }
 
 .num {
@@ -169,6 +167,29 @@ body {
 .rise-3 { animation-delay: 0.24s; }
 .rise-4 { animation-delay: 0.32s; }
 
+@keyframes page-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+.page-enter { animation: page-in 0.35s cubic-bezier(0.22, 0.61, 0.36, 1) both; }
+
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+.skeleton {
+  border-radius: 6px;
+  background: linear-gradient(90deg, var(--surface-2) 25%, var(--surface-3) 50%, var(--surface-2) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
+
+@keyframes pop {
+  from { opacity: 0; transform: translateY(-4px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+.pop { animation: pop 0.16s ease-out both; transform-origin: top right; }
+
 @keyframes draw {
   from { stroke-dashoffset: var(--len, 2000); }
   to { stroke-dashoffset: 0; }
@@ -179,7 +200,8 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .plumb-swing, .rise, .draw-line { animation: none !important; }
+  .plumb-swing, .rise, .draw-line, .page-enter, .pop, .skeleton { animation: none !important; }
+  html { scroll-behavior: auto; }
   .draw-line { stroke-dasharray: none; }
 }
 
@@ -195,3 +217,8 @@ input[type="number"] { -moz-appearance: textfield; }
 
 /* Thin scrollbars */
 * { scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent; }
+
+/* Scroll reveal (landing) */
+.reveal { transition: opacity 0.6s cubic-bezier(0.22, 0.61, 0.36, 1), transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1); }
+.reveal-pending { opacity: 0; transform: translateY(14px); }
+.reveal-pending.reveal-in { opacity: 1; transform: none; }

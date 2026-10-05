@@ -381,7 +381,7 @@ export function PlanForm({
           <div className="px-5 pt-4">
             <div className="text-[12px] text-muted">{t("plan.positionSize")}</div>
             <div className="mt-1 flex items-baseline gap-2">
-              <span className="font-display num text-[2.4rem] leading-none text-ink">{size != null ? fmtNum(size, locale, size < 1 ? 2 : size < 10 ? 2 : 0) : "—"}</span>
+              <span className="font-display num text-[34px] leading-none text-ink">{size != null ? fmtNum(size, locale, size < 1 ? 2 : size < 10 ? 2 : 0) : "—"}</span>
               <span className="text-[13px] text-muted">{preset?.unit ?? ""}</span>
             </div>
           </div>
@@ -455,7 +455,7 @@ export function PlanForm({
 function SectionTitle({ n, children }: { n: string; children: React.ReactNode }) {
   return (
     <h2 className="mb-4 flex items-baseline gap-2.5 text-[14px] font-semibold text-ink">
-      <span className="num font-display text-[13px] font-normal text-mauve">{n}</span>
+      <span className="num text-[12px] font-medium text-muted">{n}</span>
       {children}
     </h2>
   );

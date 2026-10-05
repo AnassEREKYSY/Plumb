@@ -123,7 +123,7 @@ function Tile({ label, sub, children }: { label: string; sub?: string; children:
   return (
     <div className="bg-surface px-4 py-4 sm:px-5">
       <Label>{label}</Label>
-      <div className="num mt-1.5 font-display text-[1.55rem] leading-none text-ink">{children}</div>
+      <div className="num mt-2 font-display text-[22px] leading-none text-ink">{children}</div>
       {sub && <div className="num mt-1.5 text-[12px] text-muted">{sub}</div>}
     </div>
   );

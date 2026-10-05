@@ -150,21 +150,19 @@ export default async function DashboardPage(props: PageProps<"/dashboard">) {
             {stats.profitFactor == null ? "—" : isFinite(stats.profitFactor) ? fmtNum(stats.profitFactor, locale, 2) : "∞"}
           </span>
         </Kpi>
-        <div className="col-span-2 flex flex-col justify-between gap-2 px-5 py-4 md:col-span-2 xl:col-span-1" title={t("dashboard.disciplineHint")}>
-          <div className="flex items-baseline justify-between">
-            <Label>{t("dashboard.discipline")}</Label>
-            <span className="text-[11.5px] text-muted">{t("dashboard.lastTrades", { n: last20.length })}</span>
-          </div>
-          <div className="flex items-end gap-4">
-            <div className="font-display num text-[2rem] leading-none text-ink">
+        <div className="col-span-2 flex flex-col gap-2 px-5 py-4 md:col-span-2 xl:col-span-1" title={t("dashboard.disciplineHint")}>
+          <Label>{t("dashboard.discipline")}</Label>
+          <div className="flex items-end justify-between gap-4">
+            <div className="font-display num text-[28px] leading-none text-ink">
               {stats.disciplineScore ?? "—"}
-              <span className="ml-0.5 font-sans text-[13px] text-muted">/100</span>
+              <span className="ml-0.5 text-[13px] font-normal tracking-normal text-muted">/100</span>
             </div>
             <TickStrip
-              className="min-w-0 flex-1 overflow-hidden"
+              className="h-7 max-w-[150px] min-w-0 flex-1 overflow-hidden"
               items={last20.map((c) => ({ id: c.trade.id, r: c.r, pnl: c.pnl, broken: c.violations.length > 0 }))}
             />
           </div>
+          <div className="text-[12px] text-muted">{t("dashboard.lastTrades", { n: last20.length })}</div>
         </div>
       </Card>
 
@@ -207,7 +205,7 @@ export default async function DashboardPage(props: PageProps<"/dashboard">) {
         <Card className="flex flex-col lg:col-span-4">
           <CardHeader title={t("dashboard.costTitle")} hint={t("dashboard.costHint")} />
           <div className="px-5 pb-1">
-            <Money value={-totalCost} currency={currency} className="font-display text-[2.1rem] leading-none" />
+            <Money value={-totalCost} currency={currency} className="font-display text-[30px] leading-none" />
           </div>
           <div className="flex-1 px-5 pt-4 pb-5">
             {costs.length === 0 ? (
@@ -249,12 +247,12 @@ export default async function DashboardPage(props: PageProps<"/dashboard">) {
                   const { text, question } = insightText(ins, t, locale);
                   return (
                     <li key={i} className="grid grid-cols-[28px_1fr] gap-x-2 py-3.5">
-                      <span className="num pt-0.5 font-display text-[15px] text-mauve">{String(i + 1).padStart(2, "0")}</span>
+                      <span className="num pt-0.5 text-[12px] font-medium text-muted">{String(i + 1).padStart(2, "0")}</span>
                       <div>
                         <p className="text-[14.5px] leading-snug text-ink">{text}</p>
                         <p className="mt-1 flex flex-wrap items-center gap-x-3 text-[12.5px] text-muted">
-                          <span className="italic">{question}</span>
-                          <Link href={ins.href} className="inline-flex items-center gap-0.5 font-medium text-plum not-italic hover:underline">
+                          <span>{question}</span>
+                          <Link href={ins.href} className="inline-flex items-center gap-0.5 font-medium text-plum hover:underline">
                             {t("dashboard.insights.explore")} <ArrowUpRight className="size-3" />
                           </Link>
                         </p>
@@ -386,7 +384,7 @@ function Kpi({ label, sub, children }: { label: string; sub: string; children: R
   return (
     <div className="flex flex-col gap-2 px-5 py-4">
       <Label>{label}</Label>
-      <div className="num text-[2rem] leading-none">{children}</div>
+      <div className="num text-[28px] leading-none">{children}</div>
       <div className="num truncate text-[12px] text-muted">{sub}</div>
     </div>
   );
