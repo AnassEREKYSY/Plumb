@@ -70,7 +70,7 @@ export default async function TradePage(props: PageProps<"/journal/[id]">) {
               </Badge>
             )}
           </div>
-          <h1 className="font-display text-[2.4rem] leading-none font-medium text-ink">{trade.symbol}</h1>
+          <h1 className="font-display text-[30px] leading-none text-ink">{trade.symbol}</h1>
           <p className="mt-2 text-[13px] text-muted">
             <span className="inline-block first-letter:uppercase">{fmtDate(trade.opened_at, locale, { weekday: "long", day: "numeric", month: "long", year: "numeric" }, tz)}</span> · {fmtTime(trade.opened_at, locale, tz)} · {account?.name} · {t(`markets.${trade.market}`)}
           </p>
@@ -78,7 +78,7 @@ export default async function TradePage(props: PageProps<"/journal/[id]">) {
         <div className="flex items-center gap-4">
           {isClosed && (
             <div className="text-right">
-              <Money value={checked?.pnl ?? 0} currency={currency} className="font-display text-[2.2rem] leading-none" />
+              <Money value={checked?.pnl ?? 0} currency={currency} className="font-display text-[30px] leading-none" />
               <div className="mt-1">
                 <RValue value={checked?.r ?? null} className="text-[13px] font-medium" />
               </div>
@@ -181,9 +181,7 @@ export default async function TradePage(props: PageProps<"/journal/[id]">) {
               )}
               {trade.notes && (
                 <Block label={t("trade.notes")} wide>
-                  <p className="font-display text-[15.5px] leading-relaxed text-ink italic" style={{ fontVariationSettings: '"opsz" 14' }}>
-                    “{trade.notes}”
-                  </p>
+                  <p className="border-l-2 border-mauve/40 pl-3 text-[14px] leading-relaxed text-ink">{trade.notes}</p>
                 </Block>
               )}
               {trade.lesson && <Block label={t("trade.lesson")} wide>{trade.lesson}</Block>}

@@ -5,6 +5,7 @@ import { TradeLadder } from "@/components/charts/trade-ladder";
 import { Logo, PlumbMark } from "@/components/brand/logo";
 import { LocaleSwitch, ThemeSwitch } from "@/components/app/prefs";
 import { HeroVisual } from "@/components/marketing/hero-visual";
+import { Reveal } from "@/components/marketing/reveal";
 import { Button, ButtonLink } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
 import { fmtR } from "@/lib/format";
@@ -55,14 +56,13 @@ export default async function Landing() {
 
       {/* HERO */}
       <section className="relative">
-        <div className="paper-grid pointer-events-none absolute inset-0 [mask-image:linear-gradient(to_bottom,black,transparent_85%)] opacity-70" />
         <div className="relative mx-auto grid max-w-[1200px] grid-cols-1 items-start gap-10 px-5 pt-10 pb-28 sm:px-8 lg:grid-cols-[1.02fr_1fr] lg:gap-14 lg:pt-20 lg:pb-36">
           <div className="max-w-xl pt-2 lg:pt-10">
             <p className="rise mb-6 inline-flex items-center gap-2 rounded-full border border-line-strong bg-surface px-3 py-1 text-[12px] font-medium text-ink-2">
               <span className="size-1.5 rounded-full bg-gain" />
               {t("landing.eyebrow")}
             </p>
-            <h1 className="rise rise-1 font-display text-[2.7rem] leading-[1.02] font-medium text-ink sm:text-[3.6rem] lg:text-[4.1rem]" style={{ fontVariationSettings: '"opsz" 144' }}>
+            <h1 className="rise rise-1 font-display text-[40px] leading-[1.06] text-ink sm:text-[52px] lg:text-[58px]" style={{ letterSpacing: "-0.035em" }}>
               {t("landing.heroTitle")}
             </h1>
             <p className="rise rise-2 mt-6 max-w-lg text-[16.5px] leading-relaxed text-ink-2">{t("landing.heroText")}</p>
@@ -84,27 +84,30 @@ export default async function Landing() {
       </section>
 
       {/* PROBLEM */}
+      <Reveal>
       <section className="border-y border-line bg-surface">
         <div className="mx-auto grid grid-cols-1 max-w-[1200px] gap-10 px-5 py-20 sm:px-8 lg:grid-cols-2 lg:gap-20 lg:py-28">
           <div>
-            <h2 className="font-display text-[2.1rem] leading-[1.08] font-medium text-ink sm:text-[2.6rem]">{t("landing.problemTitle")}</h2>
+            <h2 className="font-display text-[28px] leading-[1.15] text-ink sm:text-[34px]">{t("landing.problemTitle")}</h2>
             <p className="mt-5 max-w-md text-[15.5px] leading-relaxed text-ink-2">{t("landing.problemText")}</p>
           </div>
           <ol className="divide-y divide-line border-y border-line">
             {(["p1", "p2", "p3", "p4"] as const).map((k, i) => (
               <li key={k} className="grid grid-cols-[44px_1fr] items-baseline gap-2 py-5">
-                <span className="num font-display text-[15px] text-mauve">{String(i + 1).padStart(2, "0")}</span>
+                <span className="num text-[12px] font-medium text-muted">{String(i + 1).padStart(2, "0")}</span>
                 <span className="text-[16px] leading-snug text-ink">{t(`landing.problems.${k}`)}</span>
               </li>
             ))}
           </ol>
         </div>
       </section>
+      </Reveal>
 
       {/* HOW IT WORKS */}
+      <Reveal>
       <section id="how" className="mx-auto max-w-[1200px] scroll-mt-10 px-5 py-20 sm:px-8 lg:py-28">
         <div className="max-w-2xl">
-          <h2 className="font-display text-[2.1rem] leading-[1.08] font-medium text-ink sm:text-[2.6rem]">{t("landing.stepsTitle")}</h2>
+          <h2 className="font-display text-[28px] leading-[1.15] text-ink sm:text-[34px]">{t("landing.stepsTitle")}</h2>
           <p className="mt-4 text-[15.5px] leading-relaxed text-ink-2">{t("landing.stepsText")}</p>
         </div>
         <div className="mt-14 grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-4">
@@ -128,7 +131,7 @@ export default async function Landing() {
             <ol className="space-y-1.5 text-[12.5px]">
               {(["q1", "q2", "q3"] as const).map((q, i) => (
                 <li key={q} className="flex gap-2 text-ink-2">
-                  <span className="num font-display text-mauve">{i + 1}</span>
+                  <span className="num font-medium text-muted">{i + 1}</span>
                   {t(`review.${q}`)}
                 </li>
               ))}
@@ -136,17 +139,19 @@ export default async function Landing() {
           </Step>
         </div>
       </section>
+      </Reveal>
 
       {/* COST OF MISTAKES */}
+      <Reveal>
       <section className="border-y border-line bg-surface">
         <div className="mx-auto grid grid-cols-1 max-w-[1200px] items-center gap-12 px-5 py-20 sm:px-8 lg:grid-cols-2 lg:gap-20 lg:py-28">
           <div>
-            <h2 className="font-display text-[2.1rem] leading-[1.08] font-medium text-ink sm:text-[2.6rem]">{t("landing.costTitle")}</h2>
+            <h2 className="font-display text-[28px] leading-[1.15] text-ink sm:text-[34px]">{t("landing.costTitle")}</h2>
             <p className="mt-5 max-w-md text-[15.5px] leading-relaxed text-ink-2">{t("landing.costText")}</p>
           </div>
           <div className="rounded-xl border border-line bg-paper p-6 shadow-card">
             <div className="mb-4 flex items-baseline justify-between">
-              <span className="font-display text-[1.6rem] text-ink">EURUSD</span>
+              <span className="text-[20px] font-semibold tracking-tight text-ink">EURUSD</span>
               <span className="text-[12.5px] text-loss">▼ {t("common.short")} · {fmtR(-1.65, locale)}</span>
             </div>
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-[1fr_200px]">
@@ -189,31 +194,33 @@ export default async function Landing() {
           </div>
         </div>
       </section>
+      </Reveal>
 
       {/* PRINCIPLE */}
-      <section id="principle" className="scroll-mt-10 bg-[#2a1f2d] text-[#f1ebf1]">
+      <Reveal>
+      <section id="principle" className="scroll-mt-10 border-t border-line">
         <div className="mx-auto max-w-[1200px] px-5 py-20 sm:px-8 lg:py-28">
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1.3fr] lg:gap-20">
             <div className="relative">
-              <PlumbMark className="mb-8 h-20 w-auto text-[#c9a9c4]" tip="#74c095" />
-              <h2 className="font-display text-[2.3rem] leading-[1.05] font-medium sm:text-[2.9rem]">{t("landing.principleTitle")}</h2>
-              <p className="mt-5 max-w-md text-[15.5px] leading-relaxed text-[#cfc3cf]">{t("landing.principleText")}</p>
+              <PlumbMark className="mb-6 h-16 w-auto text-plum" />
+              <h2 className="font-display text-[28px] leading-[1.15] text-ink sm:text-[34px]">{t("landing.principleTitle")}</h2>
+              <p className="mt-5 max-w-md text-[15.5px] leading-relaxed text-ink-2">{t("landing.principleText")}</p>
             </div>
-            <div className="overflow-hidden rounded-xl border border-white/10">
-              <div className="grid grid-cols-2 border-b border-white/10 bg-white/[0.04] text-[12px] font-medium text-[#b9aab8]">
+            <div className="overflow-hidden rounded-xl border border-line shadow-card">
+              <div className="grid grid-cols-2 border-b border-line bg-surface-2 text-[12px] font-medium text-muted">
                 <div className="flex items-center gap-2 px-5 py-3">
-                  <Check className="size-3.5 text-[#74c095]" /> {t("landing.principleOk")}
+                  <Check className="size-3.5 text-gain" /> {t("landing.principleOk")}
                 </div>
-                <div className="flex items-center gap-2 border-l border-white/10 px-5 py-3">
-                  <X className="size-3.5 text-[#d58dbd]" /> {t("landing.principleNo")}
+                <div className="flex items-center gap-2 border-l border-line px-5 py-3">
+                  <X className="size-3.5 text-loss" /> {t("landing.principleNo")}
                 </div>
               </div>
               {([1, 2, 3, 4] as const).map((i) => (
-                <div key={i} className="grid grid-cols-2 border-b border-white/10 last:border-b-0">
-                  <p className="px-5 py-5 font-display text-[15.5px] leading-snug" style={{ fontVariationSettings: '"opsz" 24' }}>
+                <div key={i} className="grid grid-cols-2 border-b border-line last:border-b-0">
+                  <p className="px-5 py-4 text-[14.5px] leading-snug font-medium text-ink">
                     {t(`landing.principleRows.ok${i}`)}
                   </p>
-                  <p className="border-l border-white/10 px-5 py-5 text-[14px] leading-snug text-[#9d8f9c] line-through decoration-[#d58dbd]/60">
+                  <p className="border-l border-line px-5 py-4 text-[14px] leading-snug text-muted line-through decoration-loss/50">
                     {t(`landing.principleRows.no${i}`)}
                   </p>
                 </div>
@@ -222,13 +229,15 @@ export default async function Landing() {
           </div>
         </div>
       </section>
+      </Reveal>
 
       {/* SAMPLE SIZE */}
+      <Reveal>
       <section className="mx-auto grid grid-cols-1 max-w-[1200px] items-center gap-12 px-5 py-20 sm:px-8 lg:grid-cols-2 lg:gap-20 lg:py-28">
         <div className="order-2 lg:order-1">
           <div className="rounded-xl border border-line bg-surface p-6 shadow-card">
             <div className="flex items-center justify-between">
-              <span className="font-display text-[1.35rem] text-ink">{locale === "fr" ? "Cassure du range d'ouverture" : "Opening range breakout"}</span>
+              <span className="text-[16px] font-semibold text-ink">{locale === "fr" ? "Cassure du range d'ouverture" : "Opening range breakout"}</span>
               <span className="num text-[13px] font-semibold text-gain">{fmtR(1.42, locale)}</span>
             </div>
             <div className="mt-5 flex gap-1">
@@ -247,23 +256,25 @@ export default async function Landing() {
           </div>
         </div>
         <div className="order-1 lg:order-2">
-          <h2 className="font-display text-[2.1rem] leading-[1.08] font-medium text-ink sm:text-[2.6rem]">{t("landing.sampleTitle")}</h2>
+          <h2 className="font-display text-[28px] leading-[1.15] text-ink sm:text-[34px]">{t("landing.sampleTitle")}</h2>
           <p className="mt-5 max-w-md text-[15.5px] leading-relaxed text-ink-2">{t("landing.sampleText")}</p>
         </div>
       </section>
+      </Reveal>
 
       {/* PRICING */}
+      <Reveal>
       <section id="pricing" className="scroll-mt-10 border-t border-line bg-surface">
         <div className="mx-auto max-w-[1200px] px-5 py-20 sm:px-8 lg:py-28">
           <div className="max-w-2xl">
-            <h2 className="font-display text-[2.1rem] leading-[1.08] font-medium text-ink sm:text-[2.6rem]">{t("landing.pricingTitle")}</h2>
+            <h2 className="font-display text-[28px] leading-[1.15] text-ink sm:text-[34px]">{t("landing.pricingTitle")}</h2>
             <p className="mt-4 text-[15.5px] leading-relaxed text-ink-2">{t("landing.pricingText")}</p>
           </div>
           <div className="mt-12 grid max-w-4xl grid-cols-1 gap-4 md:grid-cols-2">
             <div className="rounded-xl border-2 border-plum bg-paper p-7">
               <div className="flex items-baseline justify-between">
                 <span className="text-[14px] font-semibold text-ink">{t("landing.free")}</span>
-                <span className="font-display text-[2.2rem] text-ink">{t("landing.freePrice")}</span>
+                <span className="font-display text-[30px] text-ink">{t("landing.freePrice")}</span>
               </div>
               <ul className="mt-6 space-y-3 text-[14px] text-ink-2">
                 {(["i1", "i2", "i3", "i4", "i5"] as const).map((k) => (
@@ -280,7 +291,7 @@ export default async function Landing() {
             <div className="rounded-xl border border-line bg-paper p-7">
               <div className="flex items-baseline justify-between">
                 <span className="text-[14px] font-semibold text-ink">{t("landing.pro")}</span>
-                <span className="font-display text-[1.6rem] text-muted">{t("landing.proPrice")}</span>
+                <span className="text-[18px] font-semibold text-muted">{t("landing.proPrice")}</span>
               </div>
               <ul className="mt-6 space-y-3 text-[14px] text-muted">
                 {(["i1", "i2", "i3", "i4"] as const).map((k) => (
@@ -294,6 +305,7 @@ export default async function Landing() {
           </div>
         </div>
       </section>
+      </Reveal>
 
       {/* FOOTER */}
       <footer className="border-t border-line">
@@ -316,8 +328,8 @@ export default async function Landing() {
 function Step({ n, title, text, children }: { n: string; title: string; text: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-col bg-surface p-6">
-      <span className="num font-display text-[14px] text-mauve">{n}</span>
-      <h3 className="mt-3 font-display text-[1.5rem] text-ink">{title}</h3>
+      <span className="num text-[12px] font-medium text-muted">{n}</span>
+      <h3 className="mt-2 text-[18px] font-semibold tracking-tight text-ink">{title}</h3>
       <p className="mt-2 text-[13.5px] leading-relaxed text-ink-2">{text}</p>
       <div className="mt-auto pt-6">
         <div className="rounded-lg border border-line bg-paper p-3.5">{children}</div>

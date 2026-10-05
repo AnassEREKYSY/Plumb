@@ -68,7 +68,7 @@ export function HeroVisual({
       <div className="rise rise-4 relative mt-3 w-full rounded-lg border border-line bg-surface p-4 shadow-float sm:absolute sm:-right-8 sm:-bottom-14 sm:mt-0 sm:w-[250px]">
         <div className="text-[12px] text-muted">{t("landing.mockCost")}</div>
         <div className="mt-1 flex items-baseline gap-2">
-          <Money value={-costMoved} currency="EUR" decimals={0} className="font-display text-[2rem] leading-none" />
+          <Money value={-costMoved} currency="EUR" decimals={0} className="font-display text-[28px] leading-none" />
         </div>
         <div className="mt-0.5 text-[11.5px] text-muted">{t("landing.mockCostPeriod")}</div>
         <ul className="mt-3 space-y-1.5 border-t border-line pt-3 text-[12px]">

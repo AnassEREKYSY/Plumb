@@ -35,7 +35,7 @@ export default async function PlaybookPage() {
                 <div className="h-1" style={{ background: s.color ?? "var(--mauve)" }} />
                 <div className="flex items-start justify-between gap-3 px-5 pt-4">
                   <div>
-                    <h2 className="font-display text-[1.35rem] leading-tight text-ink">{s.name}</h2>
+                    <h2 className="text-[17px] leading-tight font-semibold text-ink">{s.name}</h2>
                     {s.description && <p className="mt-1 text-[13px] leading-relaxed text-muted">{s.description}</p>}
                   </div>
                   <SetupEditor trigger="edit" setup={s} />

@@ -18,8 +18,8 @@ export function ReviewForm({ weekStart, review }: { weekStart: string; review: R
   const q = (n: string, label: string, ph: string, v: string, set: (s: string) => void) => (
     <label className="block">
       <span className="mb-2 flex items-baseline gap-2.5">
-        <span className="num font-display text-[13px] text-mauve">{n}</span>
-        <span className="font-display text-[1.1rem] text-ink">{label}</span>
+        <span className="num text-[12px] font-medium text-muted">{n}</span>
+        <span className="text-[15px] font-semibold text-ink">{label}</span>
       </span>
       <Textarea value={v} onChange={(e) => set(e.target.value)} placeholder={ph} rows={3} className="text-[14px]" />
     </label>

@@ -39,10 +39,10 @@ Plumb checks every trade against the rules *you* wrote, and shows what breaking 
 | App | Next.js 16 (App Router, React 19, TypeScript), Server Actions, Node.js runtime |
 | Data / Auth / Storage | Supabase (Postgres + Row Level Security, Supabase Auth via `@supabase/ssr`) |
 | Hosting | Vercel (functions in `cdg1`, Paris) |
-| UI | Tailwind CSS v4, custom SVG charts, Lucide icons, self-hosted fonts (Fraunces, Instrument Sans, IBM Plex Mono) |
+| UI | Tailwind CSS v4, custom SVG charts, Lucide icons, self-hosted Inter font |
 | Validation | Zod |
 
-Colour palette: warm paper `#FAF8F5`, plum ink `#4B3350`, dusty mauve `#8C6A87`, sage green `#2F6B4F` (gains).
+Colour palette: white pages, plum ink `#4B3350`, dusty mauve `#8C6A87`, sage green `#2F6B4F` (gains).
 Losses are shown in plum, not red, with an explicit sign: the journal describes, it doesn't judge.
 
 ## Getting started

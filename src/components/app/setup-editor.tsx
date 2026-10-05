@@ -56,7 +56,7 @@ export function SetupEditor({ setup, trigger }: { setup?: Setup; trigger: "new" 
         <div className="fixed inset-0 z-50 grid place-items-center bg-ink/30 p-4" onClick={() => setOpen(false)}>
           <div role="dialog" aria-modal="true" className="rise w-full max-w-lg rounded-xl border border-line bg-surface shadow-float" onClick={(e) => e.stopPropagation()}>
             <div className="flex items-center justify-between border-b border-line px-5 py-3.5">
-              <h2 className="font-display text-[1.2rem] text-ink">{setup ? setup.name : t("playbook.add")}</h2>
+              <h2 className="text-[16px] font-semibold text-ink">{setup ? setup.name : t("playbook.add")}</h2>
               <button onClick={() => setOpen(false)} className="grid size-8 place-items-center rounded-md text-muted hover:bg-surface-2" aria-label={t("common.close")}>
                 <X className="size-4" />
               </button>

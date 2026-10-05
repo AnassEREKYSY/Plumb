@@ -15,7 +15,7 @@ export function AuthForm({ mode, next, configured, confirmError }: { mode: "logi
 
   return (
     <div>
-      <h1 className="font-display text-[2.2rem] leading-tight font-medium text-ink">{mode === "login" ? t("auth.loginTitle") : t("auth.signupTitle")}</h1>
+      <h1 className="font-display text-[28px] leading-tight text-ink">{mode === "login" ? t("auth.loginTitle") : t("auth.signupTitle")}</h1>
       <p className="mt-2 text-[14px] text-muted">{mode === "login" ? t("auth.loginSubtitle") : t("auth.signupSubtitle")}</p>
 
       {!configured && <p className="mt-6 rounded-md border border-ochre/30 bg-ochre-tint px-3 py-2.5 text-[13px] text-ink">{t("auth.notConfigured")}</p>}

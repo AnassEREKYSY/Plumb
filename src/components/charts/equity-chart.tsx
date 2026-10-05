@@ -93,7 +93,7 @@ export function EquityChart({
 
   if (points.length === 0) {
     return (
-      <div ref={ref} style={{ height }} className="paper-grid grid place-items-center rounded-md text-sm text-muted">
+      <div ref={ref} style={{ height }} className="grid place-items-center rounded-md bg-surface-2/60 text-sm text-muted">
         {t("dashboard.noTrades")}
       </div>
     );

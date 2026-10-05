@@ -161,7 +161,7 @@ function Cell({ label, children }: { label: string; children: React.ReactNode })
   return (
     <div className="border-b border-line px-5 py-3.5 odd:border-r [&:nth-child(n+3)]:border-b-0">
       <Label>{label}</Label>
-      <div className="num mt-1 font-display text-[1.5rem] leading-none text-ink">{children}</div>
+      <div className="num mt-1.5 font-display text-[22px] leading-none text-ink">{children}</div>
     </div>
   );
 }

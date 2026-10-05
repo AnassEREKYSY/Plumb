@@ -10,9 +10,9 @@ export function TickStrip({
 }) {
   const max = Math.max(1, ...items.map((i) => Math.abs(i.r ?? 0)));
   return (
-    <div className={cn("flex h-9 items-end gap-[3px]", className)}>
+    <div className={cn("flex h-7 items-end gap-[3px]", className)}>
       {items.map((i) => {
-        const h = Math.max(3, (Math.abs(i.r ?? (i.pnl ? 0.5 : 0)) / max) * 26);
+        const h = Math.max(3, (Math.abs(i.r ?? (i.pnl ? 0.5 : 0)) / max) * 20);
         return (
           <div key={i.id} className="flex flex-1 flex-col items-center justify-end gap-[3px]">
             <div className={cn("w-full max-w-[6px] rounded-[1.5px]", i.pnl >= 0 ? "bg-gain" : "bg-loss")} style={{ height: h }} />
