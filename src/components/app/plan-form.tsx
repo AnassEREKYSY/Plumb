@@ -306,13 +306,18 @@ export function PlanForm({
                     const on = checks.includes(item);
                     return (
                       <li key={item}>
-                        <label className={cn("flex cursor-pointer items-start gap-2.5 rounded-md border px-3 py-2 text-[13px] transition-colors", on ? "border-gain/40 bg-gain-tint text-ink" : "border-line bg-surface text-ink-2 hover:border-line-strong")}>
-                          <input type="checkbox" className="sr-only" checked={on} onChange={() => setChecks((c) => (on ? c.filter((x) => x !== item) : [...c, item]))} />
+                        <button
+                          type="button"
+                          role="checkbox"
+                          aria-checked={on}
+                          onClick={() => setChecks((c) => (on ? c.filter((x) => x !== item) : [...c, item]))}
+                          className={cn("flex w-full items-start gap-2.5 rounded-md border px-3 py-2 text-left text-[13px] transition-colors", on ? "border-gain/40 bg-gain-tint text-ink" : "border-line bg-surface text-ink-2 hover:border-line-strong")}
+                        >
                           <span className={cn("mt-px grid size-4 shrink-0 place-items-center rounded-[4px] border", on ? "border-gain bg-gain text-surface" : "border-line-strong")}>
                             {on && <Check className="size-3" strokeWidth={3} />}
                           </span>
                           {item}
-                        </label>
+                        </button>
                       </li>
                     );
                   })}

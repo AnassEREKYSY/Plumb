@@ -1,4 +1,7 @@
 import { breakdown, computeStats, localHour, type CheckedTrade } from "./calc";
+import { fmtNum, fmtPct, fmtR } from "./format";
+import type { Locale } from "./i18n/config";
+import type { TFn } from "./i18n/translate";
 import type { Emotion, Setup } from "./types";
 
 /**
@@ -79,4 +82,29 @@ export function buildInsights(checked: CheckedTrade[], setups: Setup[], tz: stri
   }
 
   return out;
+}
+
+/** Turn an insight into a sentence and its open question, in the trader's language. */
+export function insightText(
+  ins: Insight,
+  t: TFn,
+  locale: Locale,
+) {
+  switch (ins.kind) {
+    case "lateLosses":
+      return { text: t("dashboard.insights.lateLosses", { pct: fmtPct(ins.pct, locale), hour: ins.hour }), question: t("dashboard.insights.lateQuestion") };
+    case "holdLosers":
+      return { text: t("dashboard.insights.holdLosers", { x: fmtNum(ins.x, locale, 1) }), question: t("dashboard.insights.holdQuestion") };
+    case "afterLoss":
+      return { text: t("dashboard.insights.afterLoss", { x: fmtNum(ins.x, locale, 1) }), question: t("dashboard.insights.afterLossQuestion") };
+    case "emotion": {
+      const e = t(`emotions.${ins.emotion}`).toLowerCase();
+      return {
+        text: t("dashboard.insights.emotion", { emotion: e, pct: fmtPct(ins.winRate, locale), n: ins.n }),
+        question: t("dashboard.insights.emotionQuestion", { emotion: e }),
+      };
+    }
+    case "bestSetup":
+      return { text: t("dashboard.insights.bestSetup", { setup: ins.setup, r: fmtR(ins.r, locale), n: ins.n }), question: t("dashboard.insights.bestSetupQuestion") };
+  }
 }

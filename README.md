@@ -29,6 +29,8 @@ Plumb checks every trade against the rules *you* wrote, and shows what breaking 
   and a sample size indicator on every number.
 - **Descriptive insights** computed from the journal (no AI, no advice), each ending with an open question.
 - **Journal** (list + calendar), **Playbook** (setups with checklists and real stats), **Weekly review**.
+- **PDF export of the journal**: key figures, equity vs. clean equity, cost of mistakes, insights, breakdowns,
+  the trade list, notes and lessons, weekly reviews (per account and period, EN / FR).
 - Multiple accounts (demo / live / prop), CSV export, **EN / FR**, **light / dark / system** themes.
 - **Demo mode** with a realistic sample journal, available without an account.
 

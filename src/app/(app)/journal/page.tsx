@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Suspense } from "react";
+import { ExportPdfButton } from "@/components/app/export-pdf";
 import { JournalFilters } from "@/components/app/journal-filters";
 import { MonthCalendar } from "@/components/app/month-calendar";
 import { PageHeader } from "@/components/app/page-header";
@@ -77,6 +78,7 @@ export default async function JournalPage(props: PageProps<"/journal">) {
               ))}
             </nav>
             {view === "list" && <PeriodTabs value={period} t={t} base="/journal" extra={Object.fromEntries(Object.entries(query).filter(([k]) => k !== "p"))} />}
+            <ExportPdfButton defaultPeriod={period} />
           </>
         }
       />

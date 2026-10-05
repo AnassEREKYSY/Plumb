@@ -23,9 +23,9 @@ import {
 } from "@/lib/calc";
 import { cn } from "@/lib/cn";
 import { getScope } from "@/lib/data";
-import { fmtDate, fmtMoney, fmtNum, fmtPct, fmtPrice, fmtR } from "@/lib/format";
+import { fmtDate, fmtMoney, fmtNum, fmtPct, fmtPrice } from "@/lib/format";
 import { getI18n } from "@/lib/i18n/server";
-import { buildInsights } from "@/lib/insights";
+import { buildInsights, insightText } from "@/lib/insights";
 import { inPeriod, parsePeriod } from "@/lib/period";
 
 export async function generateMetadata() {
@@ -412,28 +412,4 @@ function Legend({ color, dashed, children }: { color: string; dashed?: boolean; 
       {children}
     </span>
   );
-}
-
-function insightText(
-  ins: ReturnType<typeof buildInsights>[number],
-  t: Awaited<ReturnType<typeof getI18n>>["t"],
-  locale: Awaited<ReturnType<typeof getI18n>>["locale"],
-) {
-  switch (ins.kind) {
-    case "lateLosses":
-      return { text: t("dashboard.insights.lateLosses", { pct: fmtPct(ins.pct, locale), hour: ins.hour }), question: t("dashboard.insights.lateQuestion") };
-    case "holdLosers":
-      return { text: t("dashboard.insights.holdLosers", { x: fmtNum(ins.x, locale, 1) }), question: t("dashboard.insights.holdQuestion") };
-    case "afterLoss":
-      return { text: t("dashboard.insights.afterLoss", { x: fmtNum(ins.x, locale, 1) }), question: t("dashboard.insights.afterLossQuestion") };
-    case "emotion": {
-      const e = t(`emotions.${ins.emotion}`).toLowerCase();
-      return {
-        text: t("dashboard.insights.emotion", { emotion: e, pct: fmtPct(ins.winRate, locale), n: ins.n }),
-        question: t("dashboard.insights.emotionQuestion", { emotion: e }),
-      };
-    }
-    case "bestSetup":
-      return { text: t("dashboard.insights.bestSetup", { setup: ins.setup, r: fmtR(ins.r, locale), n: ins.n }), question: t("dashboard.insights.bestSetupQuestion") };
-  }
 }

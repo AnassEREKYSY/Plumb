@@ -1,6 +1,7 @@
 import { Download, LogOut } from "lucide-react";
 import { exitDemoAction, signOutAction } from "@/app/actions";
 import { AccountsEditor } from "@/components/app/accounts-editor";
+import { ExportPdfButton } from "@/components/app/export-pdf";
 import { PageHeader } from "@/components/app/page-header";
 import { LocaleSwitch, ThemeSwitch } from "@/components/app/prefs";
 import { Button, buttonClass } from "@/components/ui/button";
@@ -40,8 +41,9 @@ export default async function SettingsPage() {
         </Card>
         <Card>
           <CardHeader title={t("settings.data")} hint={t("settings.dataHint")} />
-          <div className="px-5 pb-5">
-            <a href="/api/export" className={buttonClass("secondary", "md")} download>
+          <div className="flex flex-wrap gap-2 px-5 pb-5">
+            <ExportPdfButton defaultPeriod="all" />
+            <a href="/api/export" className={buttonClass("secondary", "sm")} download>
               <Download className="size-4" />
               {t("settings.exportCsv")}
             </a>
