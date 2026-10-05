@@ -1,26 +1,197 @@
 @import "tailwindcss";
+@import "@fontsource-variable/fraunces/opsz.css";
+@import "@fontsource-variable/instrument-sans/index.css";
+@import "@fontsource/ibm-plex-mono/400.css";
+@import "@fontsource/ibm-plex-mono/500.css";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ------------------------------------------------------------------ */
+/*  Plumb palette — warm paper, plum ink, dusty mauve, sage green      */
+/* ------------------------------------------------------------------ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --paper: #faf8f5;
+  --surface: #ffffff;
+  --surface-2: #f4f0ee;
+  --surface-3: #ece6e6;
+  --line: #e4dfe2;
+  --line-strong: #d3cbd0;
+  --ink: #241e26;
+  --ink-2: #4a414c;
+  --muted: #776c79;
+  --plum: #4b3350;
+  --plum-hover: #3d2942;
+  --mauve: #8c6a87;
+  --mauve-tint: #eee6ed;
+  --mauve-soft: #f6f1f5;
+  --gain: #2f6b4f;
+  --gain-tint: #e3efe7;
+  --loss: #8a3f73;
+  --loss-tint: #f3e6ef;
+  --ochre: #a26c1f;
+  --ochre-tint: #f6ebd9;
+  --on-plum: #faf8f5;
+  --ring: #8c6a87;
+  --shadow: 0 1px 0 rgba(36, 30, 38, 0.04), 0 1px 2px rgba(36, 30, 38, 0.04);
+  --shadow-lg: 0 1px 0 rgba(36, 30, 38, 0.03), 0 12px 32px -12px rgba(36, 30, 38, 0.18);
+  --grid: rgba(36, 30, 38, 0.06);
+  color-scheme: light;
+}
+
+.dark {
+  --paper: #141016;
+  --surface: #1c171f;
+  --surface-2: #231d26;
+  --surface-3: #2c252f;
+  --line: #2f2833;
+  --line-strong: #40374a;
+  --ink: #efe9ef;
+  --ink-2: #cfc5d0;
+  --muted: #9a8f9c;
+  --plum: #c9a9c4;
+  --plum-hover: #d9bed4;
+  --mauve: #b796b1;
+  --mauve-tint: #2e2431;
+  --mauve-soft: #221b25;
+  --gain: #74c095;
+  --gain-tint: #1b2b22;
+  --loss: #d58dbd;
+  --loss-tint: #33212d;
+  --ochre: #dba35a;
+  --ochre-tint: #2f2516;
+  --on-plum: #141016;
+  --ring: #b796b1;
+  --shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 1px 0 rgba(0, 0, 0, 0.25), 0 16px 40px -16px rgba(0, 0, 0, 0.6);
+  --grid: rgba(239, 233, 239, 0.06);
+  color-scheme: dark;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-paper: var(--paper);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-plum: var(--plum);
+  --color-plum-hover: var(--plum-hover);
+  --color-mauve: var(--mauve);
+  --color-mauve-tint: var(--mauve-tint);
+  --color-mauve-soft: var(--mauve-soft);
+  --color-gain: var(--gain);
+  --color-gain-tint: var(--gain-tint);
+  --color-loss: var(--loss);
+  --color-loss-tint: var(--loss-tint);
+  --color-ochre: var(--ochre);
+  --color-ochre-tint: var(--ochre-tint);
+  --color-on-plum: var(--on-plum);
+
+  --font-sans: "Instrument Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces Variable", ui-serif, Georgia, serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+
+  --shadow-card: var(--shadow);
+  --shadow-float: var(--shadow-lg);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--paper);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
+
+::selection {
+  background: var(--mauve-tint);
+  color: var(--ink);
+}
+
+.font-display {
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-variation-settings: "opsz" 96;
+  letter-spacing: -0.02em;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+.ledger-rule {
+  background-image: linear-gradient(to bottom, transparent calc(100% - 1px), var(--line) 1px);
+}
+
+.paper-grid {
+  background-image:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Hanging plumb bob — swings then settles on vertical */
+@keyframes plumb-settle {
+  0% { transform: rotate(9deg); }
+  22% { transform: rotate(-6deg); }
+  42% { transform: rotate(3.6deg); }
+  60% { transform: rotate(-2deg); }
+  76% { transform: rotate(0.9deg); }
+  90% { transform: rotate(-0.3deg); }
+  100% { transform: rotate(0deg); }
+}
+.plumb-swing {
+  transform-origin: 50% 0%;
+  animation: plumb-settle 3.2s cubic-bezier(0.37, 0, 0.2, 1) 0.2s both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.rise { animation: rise 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.rise-1 { animation-delay: 0.08s; }
+.rise-2 { animation-delay: 0.16s; }
+.rise-3 { animation-delay: 0.24s; }
+.rise-4 { animation-delay: 0.32s; }
+
+@keyframes draw {
+  from { stroke-dashoffset: var(--len, 2000); }
+  to { stroke-dashoffset: 0; }
+}
+.draw-line {
+  stroke-dasharray: var(--len, 2000);
+  animation: draw 1.6s cubic-bezier(0.4, 0, 0.2, 1) 0.3s both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plumb-swing, .rise, .draw-line { animation: none !important; }
+  .draw-line { stroke-dasharray: none; }
+}
+
+/* Form controls */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+input[type="number"] { -moz-appearance: textfield; }
+
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* Thin scrollbars */
+* { scrollbar-width: thin; scrollbar-color: var(--line-strong) transparent; }
