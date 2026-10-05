@@ -150,7 +150,7 @@ export default async function DashboardPage(props: PageProps<"/dashboard">) {
             {stats.profitFactor == null ? "—" : isFinite(stats.profitFactor) ? fmtNum(stats.profitFactor, locale, 2) : "∞"}
           </span>
         </Kpi>
-        <div className="col-span-2 flex flex-col justify-between gap-2 px-5 py-4 md:col-span-1" title={t("dashboard.disciplineHint")}>
+        <div className="col-span-2 flex flex-col justify-between gap-2 px-5 py-4 md:col-span-2 xl:col-span-1" title={t("dashboard.disciplineHint")}>
           <div className="flex items-baseline justify-between">
             <Label>{t("dashboard.discipline")}</Label>
             <span className="text-[11.5px] text-muted">{t("dashboard.lastTrades", { n: last20.length })}</span>
