@@ -66,6 +66,12 @@ Open http://localhost:3000. Without Supabase variables every app page runs on th
    `https://<your-domain>/auth/confirm` (and `http://localhost:3000/auth/confirm`) to the redirect URLs.
 4. Copy the project URL and the publishable (or anon) key into `.env.local`.
 
+### Sample data (optional)
+
+To see the app filled with ~3 months of realistic trades, sign up first, then run
+[`supabase/seed/demo-data.sql`](supabase/seed/demo-data.sql) in the SQL Editor (change the email at the top).
+It replaces that user's trades, setups, rules and reviews. [`cleanup.sql`](supabase/seed/cleanup.sql) empties the journal again.
+
 ### 2. Deploy on Vercel
 
 1. Import the GitHub repository in Vercel (framework preset: Next.js).
