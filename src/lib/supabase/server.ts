@@ -6,6 +6,7 @@ import { SUPABASE_KEY, SUPABASE_URL } from "./env";
 export async function createClient() {
   const cookieStore = await cookies();
   return createServerClient(SUPABASE_URL, SUPABASE_KEY, {
+    db: { schema: "plumb" },
     cookies: {
       getAll() {
         return cookieStore.getAll();
