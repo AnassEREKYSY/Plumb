@@ -33,6 +33,7 @@ Plumb checks every trade against the rules *you* wrote, and shows what breaking 
   the trade list, notes and lessons, weekly reviews (per account and period, EN / FR).
 - Multiple accounts (demo / live / prop), CSV export, **EN / FR**, **light / dark / system** themes.
 - **Demo mode** with a realistic sample journal, available without an account.
+- **Ask Plumb**: a chat assistant that answers questions about your own journal (see below).
 
 ## Stack
 
@@ -78,10 +79,34 @@ It replaces that user's trades, setups, rules and reviews. [`cleanup.sql`](supab
 
 1. Import the GitHub repository in Vercel (framework preset: Next.js).
 2. Add the environment variables `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`.
-3. Deploy.
+3. Optional, for the assistant: add `OPENAI_API_KEY` (and `OPENAI_MODEL` to change the model).
+4. Deploy.
 
 Notes: the Vercel Hobby plan is for non-commercial use, move to Pro before charging users.
 Supabase free projects pause after a period of inactivity.
+
+## Ask Plumb (AI assistant)
+
+A chat panel, available on every page of the app, where the trader asks questions about their own journal:
+"How did my week go?", "Which rule costs me the most?", "Do I trade better in the morning?".
+
+How it works:
+
+1. The question goes to `POST /api/assistant` with the conversation history.
+2. The model (OpenAI, `gpt-4o-mini` by default, through the Vercel AI SDK) decides which data it needs and calls tools:
+   `get_stats`, `get_breakdown`, `list_trades`, `get_rules` (`src/lib/assistant/tools.ts`).
+3. The tools compute every number in code with the same functions as the rest of Plumb (`calc.ts`), scoped to the
+   signed-in user's data and the selected account. The model never calculates anything itself.
+4. The model turns the results into a short answer, streamed to the panel.
+
+Guardrails (`src/lib/assistant/instructions.ts`): describes the past only, never gives trading advice, says when the
+sample is too small, answers in the app's language, ignores instructions found inside trade notes.
+
+Cost limits (`supabase/migrations/20261103000000_assistant_usage.sql`): a daily cap per signed-in user (100 messages),
+per demo visitor (10) and for the whole app (300), counted atomically in Postgres. Each answer is capped at 700 tokens
+and the last 20 messages are sent as history. Set a monthly spending limit in the OpenAI dashboard as well.
+
+Without `OPENAI_API_KEY` the panel shows that the assistant is not configured, and the rest of the app works as before.
 
 ## Project structure
 
@@ -93,6 +118,7 @@ src/
     (app)/                dashboard, plan, journal, journal/[id], rules, analytics, playbook, review, settings
     actions.ts            server actions (auth, trades, rules, accounts, setups, reviews, preferences)
     api/export/           CSV export
+    api/assistant/        Ask Plumb chat endpoint
     auth/confirm/         email confirmation
   components/
     app/                  app shell and feature components
@@ -102,6 +128,7 @@ src/
   lib/
     calc.ts               trade maths, rules engine, statistics
     insights.ts           descriptive “mirror” insights
+    assistant/            Ask Plumb: tools and instructions for the model
     demo.ts               deterministic demo journal
     data.ts               workspace loader (Supabase or demo)
     i18n/                 EN / FR dictionaries
@@ -113,7 +140,7 @@ supabase/migrations/      database schema
 ## Roadmap
 
 - **V2**: broker CSV import, screenshots (Supabase Storage), limit notifications, readiness tracker.
-- **V3**: prop firm challenge mode, Monte Carlo risk illustration, voice journaling, AI-written summaries, mentor sharing.
+- **V3**: prop firm challenge mode, Monte Carlo risk illustration, voice journaling, mentor sharing.
 
 ## Disclaimer
 

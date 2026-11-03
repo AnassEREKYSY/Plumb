@@ -23,6 +23,7 @@ import { buttonClass } from "@/components/ui/button";
 import { cn } from "@/lib/cn";
 import { useI18n } from "@/lib/i18n/client";
 import type { Account } from "@/lib/types";
+import { Assistant } from "./assistant";
 import { LocaleSwitch, ThemeSwitch } from "./prefs";
 
 type NavKey = "dashboard" | "plan" | "journal" | "rules" | "review" | "analytics" | "playbook";
@@ -168,6 +169,7 @@ export function AppShell({
       </header>
 
       <main className="mx-auto w-full max-w-[1320px] px-4 pt-6 pb-24 sm:px-6 lg:px-8 lg:pt-10">{children}</main>
+      <Assistant />
     </div>
   );
 }
